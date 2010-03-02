@@ -128,6 +128,17 @@ get "/user_agent" => sub {
     return;
 };
 
+
+get "/host" => sub {
+    my $self = shift;
+
+    my $host = $self->req->headers->header('Host') || "<undef>";
+    my $html = html( "Foo", "Host: $host" );
+    $self->render_text($html);
+
+    return;
+};
+
 get '/:groovy' => sub {
     my $self = shift;
     $self->render_text($self->param('groovy'), layout => 'funky');

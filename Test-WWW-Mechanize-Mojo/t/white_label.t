@@ -1,16 +1,31 @@
+#!perl
+
 use strict;
 use warnings;
 
 use Test::More tests => 4;
-use lib 't/lib';
+
+use Test::Mojo;
 use Test::WWW::Mechanize::Mojo;
 
-my $m = Test::WWW::Mechanize::Mojo->new(catalyst_app => 'Catty');
+require "t/lib/mojjy.pl";
+
+use Encode qw();
+use Test::WWW::Mechanize::Mojo;
+
+my $root = "http://localhost";
+
+my $t = Test::Mojo->new();
+my $m = Test::WWW::Mechanize::Mojo->new( _tester => $t,);
 
 $m->host('foo.com');
+# TEST
 $m->get_ok('/host');
-$m->content_contains('Host: foo.com:80');
+# TEST
+$m->content_contains('Host: foo.com');
 
 $m->clear_host;
+# TEST
 $m->get_ok('/host');
-$m->content_contains('Host: localhost:80') or diag $m->content;
+# TEST
+$m->content_contains('Host: localhost') or diag $m->content;
