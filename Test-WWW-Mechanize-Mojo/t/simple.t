@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 25;
+use Test::More tests => 21;
 
 use Test::Mojo;
 use Test::WWW::Mechanize::Mojo;
@@ -71,16 +71,22 @@ $m->title_is("Hello");
 # TEST
 $m->content_contains( $chars, qq{content contains "$bytes"});
 
+=begin remmed_out
+
 SKIP: {
     eval { require Compress::Zlib; };
     skip "Compress::Zlib needed to test gzip encoding", 4 if $@;
-    # TEST
+    #===TEST
     $m->get_ok("$root/gzipped/");
-    # TEST
+    #===TEST
     is( $m->ct, "text/html" );
-    # TEST
+    #===TEST
     $m->title_is("Hello");
-    # TEST
+    #==TEST
     $m->content_contains( $chars, qq{content contains "$bytes"});
 }
+
+=end remmed_out
+
+=cut
 
