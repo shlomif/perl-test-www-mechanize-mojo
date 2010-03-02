@@ -3,9 +3,9 @@ use warnings;
 
 use Test::More tests => 4;
 use lib 't/lib';
-use Test::WWW::Mechanize::Catalyst;
+use Test::WWW::Mechanize::Mojo;
 
-my $m = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'Catty');
+my $m = Test::WWW::Mechanize::Mojo->new(catalyst_app => 'Catty');
 
 $m->host('foo.com');
 $m->get_ok('/host');

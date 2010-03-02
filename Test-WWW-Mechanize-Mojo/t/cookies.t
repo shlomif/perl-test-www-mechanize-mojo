@@ -16,9 +16,9 @@ if ($@) {
     plan tests => 3;
 }
 use lib 't/lib';
-use Test::WWW::Mechanize::Catalyst 'CattySession';
+use Test::WWW::Mechanize::Mojo 'CattySession';
 
-my $m = Test::WWW::Mechanize::Catalyst->new;
+my $m = Test::WWW::Mechanize::Mojo->new;
 $m->credentials( 'user', 'pass' );
 
 $m->get_ok("/");

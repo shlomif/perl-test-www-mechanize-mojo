@@ -5,11 +5,11 @@ use warnings;
 use Encode qw();
 use Test::More tests => 37;
 use lib 't/lib';
-use Test::WWW::Mechanize::Catalyst 'Catty';
+use Test::WWW::Mechanize::Mojo 'Catty';
 
 my $root = "http://localhost";
 
-my $m = Test::WWW::Mechanize::Catalyst->new( autocheck => 0 );
+my $m = Test::WWW::Mechanize::Mojo->new( autocheck => 0 );
 
 $m->get_ok("$root/");
 is( $m->ct, "text/html" );

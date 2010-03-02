@@ -4,13 +4,13 @@ use warnings;
 use lib 'lib';
 use Test::More tests => 28;
 use lib 't/lib';
-use Test::WWW::Mechanize::Catalyst 'Catty';
+use Test::WWW::Mechanize::Mojo 'Catty';
 
 my $root = "http://localhost";
 
 my $m;
 foreach my $where (qw{hi greetings bonjour}) {
-    $m = Test::WWW::Mechanize::Catalyst->new;
+    $m = Test::WWW::Mechanize::Mojo->new;
     $m->get_ok( "$root/$where", "got something when we $where" );
 
     is( $m->base, "http://localhost/hello", "check got to hello 1/4" );

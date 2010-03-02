@@ -29,8 +29,8 @@ $SIG{INT} = sub { warn "INT:$$"; exit };
 use_ok 'ExternalCatty';
 my $pid = ExternalCatty->background($PORT);
 
-use Test::WWW::Mechanize::Catalyst;
-my $m = Test::WWW::Mechanize::Catalyst->new;
+use Test::WWW::Mechanize::Mojo;
+my $m = Test::WWW::Mechanize::Mojo->new;
 
 my $skip = 0;
 TRY_CONNECT: {

@@ -16,10 +16,10 @@ if ($@) {
     plan tests => 4;
 }
 
-use Test::WWW::Mechanize::Catalyst;
+use Test::WWW::Mechanize::Mojo;
 
-my $m1 = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'Catty');
-my $m2 = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'CattySession');
+my $m1 = Test::WWW::Mechanize::Mojo->new(catalyst_app => 'Catty');
+my $m2 = Test::WWW::Mechanize::Mojo->new(catalyst_app => 'CattySession');
 
 $m1->get_ok("/name");
 $m1->title_is('Catty');
