@@ -39,7 +39,13 @@ get '/check_auth_basic/' => sub {
     }
 };
 
-get '/' => 'index';
+get '/' => sub {
+    my $self = shift;
+
+    $self->render_text(html("Root", "This is the root page"));
+
+    return;
+};
 
 get '/:groovy' => sub {
     my $self = shift;
@@ -55,9 +61,6 @@ shagadelic;
 =cut
 
 __DATA__
-
-@@ index.html.ep
-% layout 'funky';
 
 @@ layouts/funky.html.ep
 <!doctype html><html>

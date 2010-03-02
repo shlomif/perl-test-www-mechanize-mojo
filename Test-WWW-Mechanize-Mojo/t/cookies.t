@@ -1,27 +1,29 @@
-#!perl -T
+#!perl
+
 use strict;
 use warnings;
-use lib 'lib';
+
 use Test::More;
 
-eval {
-    require Catalyst::Plugin::Session;
-    require Catalyst::Plugin::Session::State::Cookie;
-};
+use Test::More tests => 3;
+use Test::Mojo;
+use Test::WWW::Mechanize::Mojo;
 
-if ($@) {
-    diag($@);
-    plan skip_all => "Need Catalyst::Plugin::Session to run this test";
-} else {
-    plan tests => 3;
-}
-use lib 't/lib';
-use Test::WWW::Mechanize::Mojo 'CattySession';
+require "t/lib/mojjy.pl";
 
-my $m = Test::WWW::Mechanize::Mojo->new;
+my $t = Test::Mojo->new();
+
+my $root = "http://localhost";
+
+my $m = Test::WWW::Mechanize::Mojo->new(_tester => $t);
+
 $m->credentials( 'user', 'pass' );
 
+# TEST
 $m->get_ok("/");
+
+# TEST
 $m->title_is("Root");
 
+# TEST
 is( $m->status, 200 );
