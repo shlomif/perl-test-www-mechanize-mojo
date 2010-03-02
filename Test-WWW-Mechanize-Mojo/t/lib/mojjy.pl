@@ -2,6 +2,10 @@
 
 use Mojolicious::Lite;
 
+use MIME::Base64;
+use Encode qw//;
+use Cwd;
+
 sub html {
     my ( $title, $body ) = @_;
     return qq{
@@ -17,7 +21,7 @@ $body
 get '/check_auth_basic/' => sub {
     my $self = shift;
 
-    my $auth = $self->req->headers->authorization;
+    my $auth = $self->req->headers->header("Authorization");
     ($auth) = $auth =~ /Basic\s(.*)/i;
     $auth = decode_base64($auth);
 

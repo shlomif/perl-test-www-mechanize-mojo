@@ -224,7 +224,7 @@ sub _do_mojo_request {
 
     my $method = lc($request->method());
 
-    $client->$method($uri, 
+    $client->$method($uri->opaque(), 
         +{ (map { $_ => $request->header($_) } 
                 $request->header_field_names()
             ) 

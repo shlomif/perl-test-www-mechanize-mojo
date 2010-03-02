@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Test::More tests => 5;
+use Test::Mojo;
 use Test::WWW::Mechanize::Mojo;
 
 require "t/lib/mojjy.pl";
