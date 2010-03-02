@@ -1,11 +1,12 @@
 package Test::WWW::Mechanize::Mojo;
 
 use Carp qw/croak/;
-require Catalyst::Test; # Do not call import
 use Encode qw();
 use HTML::Entities;
 
 use base 'Test::WWW::Mechanize';
+
+use Test::Mojo;
 
 #use namespace::clean -execept => 'meta';
 
@@ -67,6 +68,19 @@ sub has_host
     return exists($self->{host});
 }
 
+
+sub _tester
+{
+    my $self = shift;
+
+    if (@_)
+    {
+        $self->{_tester} = shift;
+    }
+
+    return $self->{_tester};
+}
+
 sub new {
   my $class = shift;
 
@@ -89,6 +103,11 @@ sub new {
   my $self = $class->SUPER::new(%$args);
 
   $self->{allow_external} = 0;
+
+  if (!$self->_tester())
+  {
+      $self->_tester(Test::Mojo->new());
+  }
 
   return $self;
 }
@@ -174,9 +193,9 @@ sub _do_mojo_request {
     $request = $self->prepare_request($request);
     $self->cookie_jar->add_cookie_header($request) if $self->cookie_jar;
 
-    # Woe betide anyone who unsets CATALYST_SERVER
+    # Woe betide anyone who unsets MOJO_SERVER
     return $self->_do_remote_request($request)
-      if $ENV{CATALYST_SERVER};
+      if $ENV{MOJO_SERVER};
 
     # If there's no Host header, set one.
     unless ($request->header('Host')) {
@@ -193,12 +212,32 @@ sub _do_mojo_request {
     my @creds = $self->get_basic_credentials( "Basic", $uri );
     $request->authorization_basic( @creds ) if @creds;
 
-    my $response =Catalyst::Test::local_request($self->mojo_app(), $request);
+    my $t = $self->_tester;
+  
+    # Client
+    my $client = $t->client;
+    $client->app($t->app);
+    $client->max_redirects($t->max_redirects);
+
+    $client->$method($uri, 
+        (map { $_ => $request->header($_) } $request->header_field_names()), 
+        $request->body,
+        sub { $t->tx($request->method()) and $t->redirects($uri) })
+    ->process;
+
+    my $mojo_res = $t->tx->res;
+
+    my $response = HTTP::Response->new(
+        $mojo_res->code(),
+        $mojo_res->message(),
+        [ %{$mojo_res->headers->to_hash()} ],
+        $mojo_res->body()
+    );
 
     # LWP would normally do this, but we dont get down that far.
     $response->request($request);
 
-    return $response
+    return $response;
 }
 
 sub _check_external_request {
