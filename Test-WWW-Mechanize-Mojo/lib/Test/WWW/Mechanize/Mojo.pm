@@ -129,6 +129,7 @@ sub BUILD {
       unless (Class::MOP::is_class_loaded($self->mojo_app));
   }
 }
+
 =end foo
 
 =cut
