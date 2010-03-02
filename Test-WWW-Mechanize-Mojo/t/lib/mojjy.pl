@@ -88,11 +88,6 @@ get '/redirect_with_500' => sub {
     die "erk!";
 };
 
-get '/:groovy' => sub {
-    my $self = shift;
-    $self->render_text($self->param('groovy'), layout => 'funky');
-};
-
 get "/die/" => sub {
     my $self = shift;
 
@@ -112,13 +107,18 @@ sub _gzipped {
    
     $self->res->headers->content_type("text/html; charset=utf-8");
     $self->render_text( Compress::Zlib::memGzip($html) );
-    $self->res->headers->content_encoding('gzip');
-    $self->res->headers->push_header( 'Vary', 'Accept-Encoding' );
+    $self->res->headers->content_transfer_encoding('gzip');
+    $self->res->headers->add( 'Vary', 'Accept-Encoding' );
 
     return;
 }
 
 get "/gzipped/" => \&_gzipped;
+
+get '/:groovy' => sub {
+    my $self = shift;
+    $self->render_text($self->param('groovy'), layout => 'funky');
+};
 
 get '/' => sub {
     my $self = shift;

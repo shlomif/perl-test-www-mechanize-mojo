@@ -75,7 +75,7 @@ SKIP: {
     eval { require Compress::Zlib; };
     skip "Compress::Zlib needed to test gzip encoding", 4 if $@;
     # TEST
-    $m->get_ok("/gzipped/");
+    $m->get_ok("$root/gzipped/");
     # TEST
     is( $m->ct, "text/html" );
     # TEST
