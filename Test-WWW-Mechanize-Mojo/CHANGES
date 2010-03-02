@@ -1,3 +1,10 @@
+Revision history for Perl module Test::WWW::Mechanize::Mojo :
+
+v0.0.1      Tue Mar  2 20:59:50 IST 2010
+    - Ported to Mojo from Test::WWW::Mechanize::Catalyst
+    - Convert from Module::Install Module::Build .
+    - All rights disclaimed.
+
 Revision history for Perl module Test::WWW::Mechanize::Catalyst:
 
 0.51 Mon Mar 16 10:00 GMT 2009
