@@ -1,5 +1,10 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+v0.0.2
+    - Add a missing empty line before an "=end". Without it, the POD
+    was not displayed properly by perldoc and by http://search.cpan.org/ .
+    - Add a t/pod-coverage.t test.
+
 v0.0.1      Tue Mar  2 20:59:50 IST 2010
     - Ported to Mojo from Test::WWW::Mechanize::Catalyst
     - Convert from Module::Install Module::Build .
