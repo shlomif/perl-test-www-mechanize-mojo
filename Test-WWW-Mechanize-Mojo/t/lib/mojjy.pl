@@ -39,10 +39,24 @@ get '/check_auth_basic/' => sub {
     }
 };
 
-get '/' => sub {
+
+get (any ["/hi", "/greetings", "/bonjour"]) => sub {
     my $self = shift;
 
-    $self->render_text(html("Root", "This is the root page"));
+    $self->redirect_to('/hello');
+
+    return;
+};
+
+
+get '/hello' => sub {
+    my $self = shift;
+    my $tx = shift;
+
+    my $str = Encode::encode('utf-8', "\x{263A}"); # ☺
+    my $html = html( "Hello", "Hi there! $str" );
+    $tx->res->headers->content_type("text/html; charset=utf-8");
+    $self->render_text($html);
 
     return;
 };
@@ -50,6 +64,14 @@ get '/' => sub {
 get '/:groovy' => sub {
     my $self = shift;
     $self->render_text($self->param('groovy'), layout => 'funky');
+};
+
+get '/' => sub {
+    my $self = shift;
+
+    $self->render_text(html("Root", "This is the root page"));
+
+    return;
 };
 
 shagadelic;
