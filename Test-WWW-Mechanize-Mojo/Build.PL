@@ -1,11 +1,11 @@
-#!perl
+use lib "./buildlib";
 
-use Module::Build;
+use Test::Run::Builder;
 
 use strict;
 use warnings;
 
-my $build = Module::Build->new(
+my $build = Test::Run::Builder->new(
     module_name => "Test::WWW::Mechanize::Mojo",
     test_requires =>
     {
