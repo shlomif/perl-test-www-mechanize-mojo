@@ -12,6 +12,7 @@ t/lib/Catty.pm
 t/lib/CattySession.pm
 t/lib/ExternalCatty.pm
 t/lib/mojjy.pl
+t/pod-coverage.t
 t/pod.t
 t/redirect.t
 t/simple.t
