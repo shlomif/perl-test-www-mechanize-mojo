@@ -93,6 +93,33 @@ get '/:groovy' => sub {
     $self->render_text($self->param('groovy'), layout => 'funky');
 };
 
+get "/die/" => sub {
+    my $self = shift;
+
+    my $html = html( "Die", "This is the die page" );
+    $self->render_text($html);
+    die "erk!";
+};
+
+sub _gzipped {
+    my $self = shift;
+
+    # If done properly this test should check the accept-encoding header, but we
+    # control both ends, so just always gzip the response.
+    require Compress::Zlib;
+
+    my $html = html( "Hello", "Hi there! ☺" );
+   
+    $self->res->headers->content_type("text/html; charset=utf-8");
+    $self->render_text( Compress::Zlib::memGzip($html) );
+    $self->res->headers->content_encoding('gzip');
+    $self->res->headers->push_header( 'Vary', 'Accept-Encoding' );
+
+    return;
+}
+
+get "/gzipped/" => \&_gzipped;
+
 get '/' => sub {
     my $self = shift;
 

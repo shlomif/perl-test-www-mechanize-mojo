@@ -1,76 +1,86 @@
 #!perl
+
 use strict;
 use warnings;
 
+use Test::More tests => 25;
+
+use Test::Mojo;
+use Test::WWW::Mechanize::Mojo;
+
+require "t/lib/mojjy.pl";
+
 use Encode qw();
-use Test::More tests => 37;
-use lib 't/lib';
-use Test::WWW::Mechanize::Mojo 'Catty';
+use Test::WWW::Mechanize::Mojo;
 
 my $root = "http://localhost";
 
-my $m = Test::WWW::Mechanize::Mojo->new( autocheck => 0 );
+my $t = Test::Mojo->new();
+my $m = Test::WWW::Mechanize::Mojo->new( autocheck => 0, _tester => $t,);
 
+# TEST
 $m->get_ok("$root/");
+# TEST
 is( $m->ct, "text/html" );
+# TEST
 $m->title_is("Root");
+# TEST
 $m->content_contains("This is the root page");
 
+# TEST
 $m->follow_link_ok( { text => 'Hello' } );
+# TEST
 is( $m->base, "http://localhost/hello/" );
+# TEST
 is( $m->ct,   "text/html" );
+# TEST
 $m->title_is("Hello");
 my $bytes = "Hi there! ☺";
 my $chars = Encode::decode( 'utf-8', $bytes );
+# TEST
 $m->content_contains( $chars, qq{content contains "$bytes"});
 
 #use Devel::Peek; Dump $m->content;
 #Dump(Encode::decode('utf-8', "Hi there! ☺"));
 #exit;
 
+# TEST
 $m->get_ok("/");
+# TEST
 is( $m->ct, "text/html" );
+# TEST
 $m->title_is("Root");
+# TEST
 $m->content_contains("This is the root page");
 
+# TEST
 $m->get_ok("http://example.com/");
+# TEST
 is( $m->ct, "text/html" );
+# TEST
 $m->title_is("Root");
+# TEST
 $m->content_contains("This is the root page");
 
+# TEST
 $m->get_ok("/hello/");
+# TEST
 is( $m->ct, "text/html" );
+# TEST
 $m->title_is("Hello");
+# TEST
 $m->content_contains( $chars, qq{content contains "$bytes"});
 
 SKIP: {
     eval { require Compress::Zlib; };
     skip "Compress::Zlib needed to test gzip encoding", 4 if $@;
+    # TEST
     $m->get_ok("/gzipped/");
+    # TEST
     is( $m->ct, "text/html" );
+    # TEST
     $m->title_is("Hello");
+    # TEST
     $m->content_contains( $chars, qq{content contains "$bytes"});
 }
 
-$m->get("$root/die/");
-is( $m->status, 500 );
-$m->content_like( qr!\(en\) Please come back later!);
-$m->content_unlike( qr!<a href="/hello/">Hello</a>.!);
-
-$m->get("/die/");
-is( $m->status, 500 );
-$m->content_like( qr!\(en\) Please come back later!);
-$m->content_unlike( qr!<a href="/hello/">Hello</a>.!);
-
-{
-  no warnings 'redefine';
-  ${Catty::}{debug} = sub { 1 };
-  $m->{catalyst_debug} = 1;
-  $m->get("$root/die/");
-  is( $m->status, 500 );
-  is( $m->ct,     "text/html" );
-  $m->title_like(qr/Catty on Catalyst/);
-  $m->content_like(qr/Caught exception in Catty/);
-  $m->content_like(qr/erk/);
-  $m->content_like(qr/This is the die page/);
-}
