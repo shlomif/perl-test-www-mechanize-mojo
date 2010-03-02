@@ -225,10 +225,15 @@ sub _do_mojo_request {
     my $method = lc($request->method());
 
     $client->$method($uri, 
-        (map { $_ => $request->header($_) } $request->header_field_names()), 
+        +{ (map { $_ => $request->header($_) } 
+                $request->header_field_names()
+            ) 
+        },
         $request->content,
-        sub { $t->tx($request->method()) and $t->redirects($uri) })
-    ->process;
+        sub { my (undef, $tx, $redirs) = @_; 
+            $t->tx($tx) and $t->redirects($redirs) 
+        }
+    )->process;
 
     my $mojo_res = $t->tx->res;
 
