@@ -1,5 +1,8 @@
 package Test::WWW::Mechanize::Mojo;
 
+use strict;
+use warnings;
+
 use Carp qw/croak/;
 use Encode qw();
 use HTML::Entities;
@@ -219,9 +222,11 @@ sub _do_mojo_request {
     $client->app($t->app);
     $client->max_redirects($t->max_redirects);
 
+    my $method = lc($request->method());
+
     $client->$method($uri, 
         (map { $_ => $request->header($_) } $request->header_field_names()), 
-        $request->body,
+        $request->content,
         sub { $t->tx($request->method()) and $t->redirects($uri) })
     ->process;
 
@@ -294,18 +299,6 @@ sub _do_remote_request {
     $request->uri->path( $server->path . $request->uri->path );
     return $self->SUPER::_make_request($request);
 }
-
-sub import {
-  my ($class, $app) = @_;
-
-  if (defined $app) {
-    Class::MOP::load_class($app)
-      unless (Class::MOP::is_class_loaded($app));
-    $APP_CLASS = $app; 
-  }
-
-}
-
 
 1;
 

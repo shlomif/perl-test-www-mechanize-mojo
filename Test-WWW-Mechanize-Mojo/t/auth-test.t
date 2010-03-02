@@ -1,14 +1,18 @@
-#!perl -T
+#!perl
+
 use strict;
 use warnings;
-use lib 'lib';
+
 use Test::More tests => 5;
-use lib 't/lib';
-use Test::WWW::Mechanize::Mojo 'Catty';
+use Test::WWW::Mechanize::Mojo;
+
+require "t/lib/mojjy.pl";
+
+my $t = Test::Mojo->new();
 
 my $root = "http://localhost";
 
-my $m = Test::WWW::Mechanize::Mojo->new;
+my $m = Test::WWW::Mechanize::Mojo->new(_tester => $t);
 $m->credentials( 'user', 'pass' );
 
 $m->get_ok("$root/check_auth_basic/");
