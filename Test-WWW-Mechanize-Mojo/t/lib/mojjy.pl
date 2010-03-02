@@ -115,6 +115,19 @@ sub _gzipped {
 
 get "/gzipped/" => \&_gzipped;
 
+
+get "/user_agent" => sub {
+    my $self = shift;
+    
+    my $agent = $self->req->headers->user_agent();
+    my $html = html($agent, $agent);
+    
+    $self->render_text($html);
+    $self->res->headers->content_type("text/html; charset=utf-8");
+    
+    return;
+};
+
 get '/:groovy' => sub {
     my $self = shift;
     $self->render_text($self->param('groovy'), layout => 'funky');
