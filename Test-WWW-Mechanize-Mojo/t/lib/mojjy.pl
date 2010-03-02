@@ -40,7 +40,7 @@ get '/check_auth_basic/' => sub {
 };
 
 
-get (any ["/hi", "/greetings", "/bonjour"]) => sub {
+get "/hi" => sub {
     my $self = shift;
 
     $self->redirect_to('/hello');
@@ -48,17 +48,44 @@ get (any ["/hi", "/greetings", "/bonjour"]) => sub {
     return;
 };
 
+get "/greetings" => sub {
+    my $self = shift;
+
+    # This relative URL is something that Catalyst eats and appears
+    # in Catty.pm , but Mojo won't accept.
+    # -- Shlomi Fish
+    # $self->redirect_to('hello');
+    $self->redirect_to('/hello');
+
+    return;
+};
+
+get "/bonjour" => sub {
+    my $self = shift;
+
+    $self->redirect_to('/hi');
+
+    return;
+};
+
 
 get '/hello' => sub {
     my $self = shift;
-    my $tx = shift;
 
     my $str = Encode::encode('utf-8', "\x{263A}"); # ☺
     my $html = html( "Hello", "Hi there! $str" );
-    $tx->res->headers->content_type("text/html; charset=utf-8");
+    $self->res->headers->content_type("text/html; charset=utf-8");
     $self->render_text($html);
 
     return;
+};
+
+get '/redirect_with_500' => sub {
+    my $self = shift;
+
+    $self->redirect_to('/bonjour');
+
+    die "erk!";
 };
 
 get '/:groovy' => sub {
