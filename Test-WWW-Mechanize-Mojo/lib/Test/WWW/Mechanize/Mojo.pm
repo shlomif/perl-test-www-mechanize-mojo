@@ -316,10 +316,12 @@ Test::WWW::Mechanize::Mojo - Test::WWW::Mechanize for Mojo / Mojolicious
 =head1 SYNOPSIS
 
   # We're in a t/*.t test script...
-  use Test::WWW::Mechanize::Catalyst;
+  use Test::WWW::Mechanize::Mojo;
 
-  # To test a Catalyst application named 'Catty':
-  my $mech = Test::WWW::Mechanize::Catalyst->new(mojo_app => 'Catty');
+  my $tester = Test::Mojo->new();
+
+  # To test a Mojo application 
+  my $mech = Test::WWW::Mechanize::Mojo->new(tester => $tester);
 
   $mech->get_ok("/"); # no hostname needed
   is($mech->ct, "text/html");
@@ -342,10 +344,10 @@ needing to starting up a web server.
 
 Testing web applications has always been a bit tricky, normally
 requiring starting a web server for your application and making real HTTP
-requests to it. This module allows you to test L<Catalyst> web
+requests to it. This module allows you to test L<Mojo> web
 applications but does not require a server or issue HTTP
 requests. Instead, it passes the HTTP request object directly to
-L<Catalyst>. Thus you do not need to use a real hostname:
+L<Mojo>. Thus you do not need to use a real hostname:
 "http://localhost/" will do. However, this is optional. The following
 two lines of code do exactly the same thing:
 
@@ -365,14 +367,14 @@ CATALYST_SERVER; for example:
 
 will run the same tests on the application running at
 http://example.com/myapp regardless of whether or not you specify
-http:://localhost for Test::WWW::Mechanize::Catalyst.    
+http:://localhost for Test::WWW::Mechanize::Mojo.    
 
 Furthermore, if you set CATALYST_SERVER, the server will be regarded 
 as a remote server even if your links point to localhost. Thus, you
-can use Test::WWW::Mechanize::Catalyst to test your live webserver
+can use Test::WWW::Mechanize::Mojo to test your live webserver
 running on your local machine, if you need to test aspects of your
 deployment environment (for example, configuration options in an
-http.conf file) instead of just the Catalyst request handling.
+http.conf file) instead of just the Mojo request handling.
     
 This makes testing fast and easy. L<Test::WWW::Mechanize> provides
 functions for common web testing scenarios. For example:
@@ -387,14 +389,14 @@ This module supports cookies automatically.
 To use this module you must pass it the name of the application. See
 the SYNOPSIS above.
 
-Note that Catalyst has a special developing feature: the debug
+Note that Mojo has a special developing feature: the debug
 screen. By default this module will treat responses which are the
 debug screen as failures. If you actually want to test debug screens,
 please use:
 
   $mmech->{catalyst_debug} = 1;
 
-An alternative to this module is L<Catalyst::Test>.
+An alternative to this module is L<Test::Mojo>.
 
 =head1 CONSTRUCTOR
 
@@ -404,8 +406,15 @@ Behaves like, and calls, L<WWW::Mechanize>'s C<new> method.  Any params
 passed in get passed to WWW::Mechanize's constructor. Note that we
 need to pass the name of the Catalyst application to the "use":
 
-  use Test::WWW::Mechanize::Catalyst 'Catty';
-  my $mech = Test::WWW::Mechanize::Catalyst->new;
+  use Test::WWW::Mechanize::Catalyst;
+
+  use Test::Mojo;
+
+  my $tester = Test::Mojo->new();
+
+  my $mech = Test::WWW::Mechanize::Catalyst->new(tester => $tester);
+
+In addition, one can specify a C<'tester'> argument as the Test::Mojo instance.
 
 =head1 METHODS
 
@@ -595,14 +604,14 @@ redirect.
 
 =head1 SEE ALSO
 
-Related modules which may be of interest: L<Catalyst>,
-L<Test::WWW::Mechanize>, L<WWW::Mechanize>.
+Related modules which may be of interest: L<Mojo>,
+L<Test::WWW::Mechanize>, L<WWW::Mechanize>, L<Test::WWW::Mechanize::Catalyst>.
 
 =head1 AUTHOR
 
-=head2 Of Test::WWW::Mechanize::Catalyst
+=head2 Of Test::WWW::Mechanize::Catalyst 
 
-Ash Berlin C<< <ash@cpan.org> >> (current maintiner)
+Ash Berlin C<< <ash@cpan.org> >>
 
 Original Author: Leon Brocard, C<< <acme@astray.com> >>
 
