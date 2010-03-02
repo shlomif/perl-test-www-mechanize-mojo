@@ -13,29 +13,67 @@ our $VERSION = '0.0.1';
 our $APP_CLASS;
 my $Test = Test::Builder->new();
 
-has catalyst_app => (
-  is => 'ro',
-  predicate => 'has_catalyst_app',
-);
+sub mojo_app
+{
+    my $self = shift;
 
-has allow_external => (
-  is => 'rw',
-  isa => 'Bool',
-  default => 0
-);
+    return $self->{mojo_app};
+}
 
-has host => (
-  is => 'rw',
-  isa => 'Str',
-  clearer => 'clear_host',
-  predicate => 'has_host',
-);
+sub has_mojo_app
+{
+    my $self = shift;
+
+    return exists($self->{mojo_app});
+}
+
+sub allow_external
+{
+    my $self = shift;
+
+    if (@_)
+    {
+        $self->{allow_external} = shift;
+    }
+
+    return $self->{allow_external};
+}
+
+sub host
+{
+    my $self = shift;
+
+    if (@_)
+    {
+        $self->{host} = shift;
+    }
+
+    return $self->{host};
+}
+
+sub clear_host
+{
+    my $self = shift;
+
+    delete($self->{host});
+
+    return;
+}
+
+sub has_host
+{
+    my $self = shift;
+
+    return exists($self->{host});
+}
 
 sub new {
   my $class = shift;
 
   my $args = ref $_[0] ? $_[0] : { @_ };
   
+=begin foo
+
   # Dont let LWP complain about options for our attributes
   my %attr_options = map {
     my $n = $_->init_arg;
@@ -44,34 +82,37 @@ sub new {
         : ( );
   } $class->meta->get_all_attributes;
 
-  my $obj = $class->SUPER::new(%$args);
-  my $self = $class->meta->new_object(
-    __INSTANCE__ => $obj,
-    ($APP_CLASS ? (catalyst_app => $APP_CLASS) : () ),
-    %attr_options
-  );
+=end foo
 
-  $self->BUILDALL;
+=cut
 
+  my $self = $class->SUPER::new(%$args);
+
+  $self->{allow_external} = 0;
 
   return $self;
 }
+
+=begin foo
 
 sub BUILD {
   my ($self) = @_;
 
   unless ($ENV{CATALYST_SERVER}) {
-    croak "catalyst_app attribute is required unless CATALYST_SERVER env variable is set"
-      unless $self->has_catalyst_app;
-    Class::MOP::load_class($self->catalyst_app)
-      unless (Class::MOP::is_class_loaded($self->catalyst_app));
+    croak "mojo_app attribute is required unless CATALYST_SERVER env variable is set"
+      unless $self->has_mojo_app;
+    Class::MOP::load_class($self->mojo_app)
+      unless (Class::MOP::is_class_loaded($self->mojo_app));
   }
 }
+=end foo
+
+=cut
 
 sub _make_request {
     my ( $self, $request ) = @_;
 
-    my $response = $self->_do_catalyst_request($request);
+    my $response = $self->_do_mojo_request($request);
     $response->header( 'Content-Base', $response->request->uri )
       unless $response->header('Content-Base');
 
@@ -123,7 +164,7 @@ sub _make_request {
     return $response;
 }
 
-sub _do_catalyst_request {
+sub _do_mojo_request {
     my ($self, $request) = @_;
 
     my $uri = $request->uri;
@@ -152,7 +193,7 @@ sub _do_catalyst_request {
     my @creds = $self->get_basic_credentials( "Basic", $uri );
     $request->authorization_basic( @creds ) if @creds;
 
-    my $response =Catalyst::Test::local_request($self->{catalyst_app}, $request);
+    my $response =Catalyst::Test::local_request($self->mojo_app(), $request);
 
     # LWP would normally do this, but we dont get down that far.
     $response->request($request);
@@ -241,7 +282,7 @@ Test::WWW::Mechanize::Mojo - Test::WWW::Mechanize for Mojo / Mojolicious
   use Test::WWW::Mechanize::Catalyst;
 
   # To test a Catalyst application named 'Catty':
-  my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'Catty');
+  my $mech = Test::WWW::Mechanize::Catalyst->new(mojo_app => 'Catty');
 
   $mech->get_ok("/"); # no hostname needed
   is($mech->ct, "text/html");
@@ -339,9 +380,9 @@ single sign-on system. You must set allow_external to true for this:
 
   $m->allow_external(1);
 
-head2 catalyst_app
+head2 mojo_app
 
-The name of the Catalyst app which we are testing against. Read-only.
+The name of the Mojo app which we are testing against. Read-only.
 
 =head2 host
 
