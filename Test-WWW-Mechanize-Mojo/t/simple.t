@@ -16,7 +16,7 @@ use Test::WWW::Mechanize::Mojo;
 my $root = "http://localhost";
 
 my $t = Test::Mojo->new();
-my $m = Test::WWW::Mechanize::Mojo->new( autocheck => 0, _tester => $t,);
+my $m = Test::WWW::Mechanize::Mojo->new( autocheck => 0, tester => $t,);
 
 # TEST
 $m->get_ok("$root/");

@@ -72,16 +72,16 @@ sub has_host
 }
 
 
-sub _tester
+sub tester
 {
     my $self = shift;
 
     if (@_)
     {
-        $self->{_tester} = shift;
+        $self->{tester} = shift;
     }
 
-    return $self->{_tester};
+    return $self->{tester};
 }
 
 sub new {
@@ -105,12 +105,16 @@ sub new {
 
   my $self = $class->SUPER::new(%$args);
 
-  $self->{allow_external} = 0;
-
-  if (!$self->_tester())
+  if ($args->{tester})
   {
-      $self->_tester(Test::Mojo->new());
+      $self->tester($args->{tester});
   }
+  else
+  {
+      $self->tester(Test::Mojo->new());
+  }
+
+  $self->{allow_external} = 0;
 
   return $self;
 }
@@ -215,7 +219,7 @@ sub _do_mojo_request {
     my @creds = $self->get_basic_credentials( "Basic", $uri );
     $request->authorization_basic( @creds ) if @creds;
 
-    my $t = $self->_tester;
+    my $t = $self->tester;
   
     # Client
     my $client = $t->client;

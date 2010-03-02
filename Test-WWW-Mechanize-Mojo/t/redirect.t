@@ -16,7 +16,7 @@ my $m;
 
 # TEST:$n=3;
 foreach my $where (qw{hi greetings bonjour}) {
-    $m = Test::WWW::Mechanize::Mojo->new(_tester => $t);
+    $m = Test::WWW::Mechanize::Mojo->new(tester => $t);
     # TEST*$n
     $m->get_ok( "$root/$where", "got something when we $where" );
 

@@ -15,7 +15,7 @@ my $t = Test::Mojo->new();
 
 my $root = "http://localhost";
 
-my $m = Test::WWW::Mechanize::Mojo->new(_tester => $t);
+my $m = Test::WWW::Mechanize::Mojo->new(tester => $t);
 
 $m->credentials( 'user', 'pass' );
 
