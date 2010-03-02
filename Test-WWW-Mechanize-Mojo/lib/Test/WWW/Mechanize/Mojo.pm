@@ -11,8 +11,6 @@ use base 'Test::WWW::Mechanize';
 
 use Test::Mojo;
 
-#use namespace::clean -execept => 'meta';
-
 our $VERSION = '0.0.1';
 our $APP_CLASS;
 my $Test = Test::Builder->new();

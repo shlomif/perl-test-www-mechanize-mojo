@@ -1,7 +1,7 @@
 ---
 abstract: 'Test::WWW::Mechanize for Mojo / Mojolicious'
 author:
-  - 'Ash Berlin C<< <ash@cpan.org> >> (current maintiner)'
+  - 'Ash Berlin C<< <ash@cpan.org> >>'
   - 'Original Author: Leon Brocard, C<< <acme@astray.com> >>'
 configure_requires:
   Module::Build: 0.36
@@ -17,11 +17,16 @@ provides:
     file: lib/Test/WWW/Mechanize/Mojo.pm
     version: v0.0.1
 requires:
+  Carp: 0
+  Encode: 0
+  HTML::Entities: 0
   LWP: 5.816
   Mojolicious::Lite: 0
   Test::WWW::Mechanize: 1.14
   WWW::Mechanize: 1.50
-  namespace::clean: 0.09
+  base: 0
+  strict: 0
+  warnings: 0
 resources:
   homepage: http://web-cpan.berlios.de/modules/Test-WWW-Mechanize-Mojo/
   license: http://dev.perl.org/licenses/

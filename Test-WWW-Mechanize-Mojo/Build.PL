@@ -11,14 +11,20 @@ my $build = Test::Run::Builder->new(
     {
         'Test::Exception'=> '0',
         'Test::More' => '0',
+        'Test::Mojo' => 0,
     },
     requires => 
     {
-        'Mojolicious::Lite' => 0,
+        'base' => 0,
+        'Carp' => 0,
+        'Encode' => 0,
+        'HTML::Entities'                           => 0,
         'LWP'                                      => '5.816',
+        'Mojolicious::Lite' => 0,
+        'strict' => 0,
         'Test::WWW::Mechanize'                     => '1.14',
+        'warnings' => 0,
         'WWW::Mechanize'                           => '1.50',
-        'namespace::clean'                         => '0.09',
     },
     dist_version_from => "lib/Test/WWW/Mechanize/Mojo.pm",
     license => "perl",

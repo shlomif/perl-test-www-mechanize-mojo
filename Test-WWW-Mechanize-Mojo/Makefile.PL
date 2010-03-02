@@ -5,11 +5,16 @@ WriteMakefile
           'NAME' => 'Test::WWW::Mechanize::Mojo',
           'VERSION_FROM' => 'lib/Test/WWW/Mechanize/Mojo.pm',
           'PREREQ_PM' => {
+                           'Carp' => 0,
+                           'Encode' => 0,
+                           'HTML::Entities' => 0,
                            'LWP' => '5.816',
                            'Mojolicious::Lite' => 0,
                            'Test::WWW::Mechanize' => '1.14',
                            'WWW::Mechanize' => '1.50',
-                           'namespace::clean' => '0.09'
+                           'base' => 0,
+                           'strict' => 0,
+                           'warnings' => 0
                          },
           'INSTALLDIRS' => 'site',
           'EXE_FILES' => [],
