@@ -8,6 +8,7 @@ README
 t/auth-test.t
 t/cookies.t
 t/lib/Catty.pm
+t/lib/mojjy.pl
 t/lib/CattySession.pm
 t/lib/ExternalCatty.pm
 t/multi_content_type.t
