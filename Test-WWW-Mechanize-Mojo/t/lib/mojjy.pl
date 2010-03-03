@@ -139,6 +139,46 @@ get "/host" => sub {
     return;
 };
 
+post "/form-submit" => sub {
+    my $self = shift;
+    
+    my $html = html( "Foo", "Your email is " . $self->param("email"));
+
+    $self->render_text($html);
+
+    return;
+};
+
+get "/form" => sub {
+    my $self = shift;
+
+    $self->render_text(<<'EOF');
+<html>
+<head><title>Form test</title></head>
+<body>
+<form id="register" action="/form-submit" method="post">
+<table>
+
+<tr>
+<td>Email:</td>
+<td><input name="email" /></td>
+</tr>
+
+<tr>
+<td colspan="2">
+<input type="submit" value="Submit" />
+</td>
+</tr>
+
+</table>
+</form>
+
+</body></html>
+
+EOF
+    return;
+};
+
 get '/:groovy' => sub {
     my $self = shift;
     $self->render_text($self->param('groovy'), layout => 'funky');
