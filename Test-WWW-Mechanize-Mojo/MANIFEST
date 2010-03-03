@@ -8,6 +8,7 @@ META.yml
 README
 t/auth-test.t
 t/cookies.t
+t/form_submit.t
 t/lib/Catty.pm
 t/lib/CattySession.pm
 t/lib/ExternalCatty.pm

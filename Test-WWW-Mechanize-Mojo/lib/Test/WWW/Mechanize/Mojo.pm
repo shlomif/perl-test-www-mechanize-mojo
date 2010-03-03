@@ -228,11 +228,15 @@ sub _do_mojo_request {
 
     my $method = lc($request->method());
 
-    $client->$method($uri->opaque(), 
-        +{ (map { $_ => $request->header($_) } 
-                $request->header_field_names()
-            ) 
-        },
+    my %headers =
+    (
+        map { $_ => $request->header($_) } 
+        $request->header_field_names()
+    );
+
+    $client->$method($uri->path(), 
+        # TODO : fix this to pass it as a ref.
+        %headers,
         $request->content,
         sub { my (undef, $tx, $redirs) = @_; 
             $t->tx($tx) and $t->redirects($redirs) 

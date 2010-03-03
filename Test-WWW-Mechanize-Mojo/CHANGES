@@ -1,5 +1,8 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+v0.0.3      Thu Mar  4 00:35:10 IST 2010
+    - Fix submit_form_ok on the contemporary Mojo::Client . (with a test).
+
 v0.0.2      Tue Mar  2 23:27:43 IST 2010
     - Add a missing empty line before an "=end". Without it, the POD
     was not displayed properly by perldoc and by http://search.cpan.org/ .
