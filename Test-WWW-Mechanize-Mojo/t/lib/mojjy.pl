@@ -179,6 +179,12 @@ EOF
     return;
 };
 
+get '/with-params' => sub {
+    my $self = shift;
+
+    $self->render_text(sprintf("[%s]{%s}", $self->param('one'), $self->param('two')));
+};
+
 get '/:groovy' => sub {
     my $self = shift;
     $self->render_text($self->param('groovy'), layout => 'funky');

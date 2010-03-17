@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 21;
+use Test::More tests => 25;
 
 use Test::Mojo;
 use Test::WWW::Mechanize::Mojo;
@@ -70,6 +70,16 @@ is( $m->ct, "text/html" );
 $m->title_is("Hello");
 # TEST
 $m->content_contains( $chars, qq{content contains "$bytes"});
+
+# TEST
+$m->get_ok('/with-params?one=foo&two=bar');
+# TEST
+$m->content_contains("[foo]{bar}", "Get params are OK.");
+
+# TEST
+$m->get_ok('/with-params?one=sophie&two=jack');
+# TEST
+$m->content_contains("[sophie]{jack}", "Get params (#2) are OK.");
 
 =begin remmed_out
 

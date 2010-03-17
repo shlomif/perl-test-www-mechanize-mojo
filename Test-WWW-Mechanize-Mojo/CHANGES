@@ -1,5 +1,9 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+v0.0.4      Wed Mar 17 16:01:20 IST 2010
+    - Now evaluating the GET parameters in requests by using URI.pm's
+    ->path_query() instead of ->path().
+
 v0.0.3      Thu Mar  4 00:35:10 IST 2010
     - Fix submit_form_ok on the contemporary Mojo::Client . (with a test).
 

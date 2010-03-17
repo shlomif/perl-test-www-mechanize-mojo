@@ -11,7 +11,7 @@ use base 'Test::WWW::Mechanize';
 
 use Test::Mojo;
 
-our $VERSION = '0.0.3';
+our $VERSION = '0.0.4';
 
 our $APP_CLASS;
 my $Test = Test::Builder->new();
@@ -234,7 +234,7 @@ sub _do_mojo_request {
         $request->header_field_names()
     );
 
-    $client->$method($uri->path(), 
+    $client->$method($uri->path_query(), 
         # TODO : fix this to pass it as a ref.
         %headers,
         $request->content,
