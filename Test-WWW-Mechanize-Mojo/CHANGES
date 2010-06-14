@@ -1,5 +1,8 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+    - Removed the call to Test::Mojo->redirect() which is no longer
+    implemented in recent Mojos.
+
 v0.0.4      Wed Mar 17 16:01:20 IST 2010
     - Now evaluating the GET parameters in requests by using URI.pm's
     ->path_query() instead of ->path().

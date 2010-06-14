@@ -238,8 +238,8 @@ sub _do_mojo_request {
         # TODO : fix this to pass it as a ref.
         %headers,
         $request->content,
-        sub { my (undef, $tx, $redirs) = @_; 
-            $t->tx($tx) and $t->redirects($redirs) 
+        sub { my (undef, $tx) = @_; 
+            $t->tx($tx)
         }
     )->process;
 
