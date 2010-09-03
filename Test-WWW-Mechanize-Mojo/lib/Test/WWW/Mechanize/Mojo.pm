@@ -11,7 +11,7 @@ use base 'Test::WWW::Mechanize';
 
 use Test::Mojo;
 
-our $VERSION = '0.0.5';
+our $VERSION = '0.0.6';
 
 our $APP_CLASS;
 my $Test = Test::Builder->new();
