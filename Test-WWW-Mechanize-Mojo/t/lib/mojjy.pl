@@ -6,6 +6,8 @@ use MIME::Base64;
 use Encode qw//;
 use Cwd;
 
+use utf8;
+
 sub html {
     my ( $title, $body ) = @_;
     return qq{
@@ -72,8 +74,7 @@ get "/bonjour" => sub {
 get '/hello' => sub {
     my $self = shift;
 
-    my $str = Encode::encode('utf-8', "\x{263A}"); # ☺
-    my $html = html( "Hello", "Hi there! $str" );
+    my $html = html( "Hello", "Hi there! ☺" ); # ☺
     $self->res->headers->content_type("text/html; charset=utf-8");
     $self->render_text($html);
 

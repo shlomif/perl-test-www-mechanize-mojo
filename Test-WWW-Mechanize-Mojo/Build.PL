@@ -23,6 +23,7 @@ my $build = Test::Run::Builder->new(
         'Mojolicious::Lite' => 0,
         'strict' => 0,
         'Test::WWW::Mechanize'                     => '1.14',
+        'utf8' => 0,
         'warnings' => 0,
         'WWW::Mechanize'                           => '1.50',
     },

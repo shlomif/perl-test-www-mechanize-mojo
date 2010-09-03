@@ -14,6 +14,7 @@ WriteMakefile
                            'WWW::Mechanize' => '1.50',
                            'base' => 0,
                            'strict' => 0,
+                           'utf8' => 0,
                            'warnings' => 0
                          },
           'INSTALLDIRS' => 'site',

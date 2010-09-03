@@ -1,5 +1,8 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+v0.0.6      Fri Sep  3 20:43:26 IDT 2010
+    - Fixed mojjy.pl to avoid double encoding in recent Mojo versions.
+
 v0.0.5      Mon Jun 14 21:54:45 IDT 2010
     - Removed the call to Test::Mojo->redirect() which is no longer
     implemented in recent Mojos.
