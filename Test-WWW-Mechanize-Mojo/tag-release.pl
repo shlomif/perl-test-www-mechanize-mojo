@@ -16,7 +16,7 @@ if (!defined ($version))
     die "Version is undefined!";
 }
 
-my $mini_repos_base = 'https://svn.berlios.de/svnroot/repos/web-cpan/Test-WWW-Mechanize-Mojo/';
+my $mini_repos_base = 'https://svn.berlios.de/svnroot/repos/web-cpan/Test-WWW-Mechanize-Mojo';
 
 my @cmd = (
     "svn", "copy", "-m",
@@ -25,5 +25,5 @@ my @cmd = (
     "$mini_repos_base/tags/releases/$version",
 );
 
-print join(" ", @cmd), "\n";
+print join(" ", map { /\s/ ? qq{"$_"} : $_ } @cmd), "\n";
 exec(@cmd);
