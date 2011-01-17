@@ -1,5 +1,11 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+v0.0.7      Mon Jan 17 15:55:00 IST 2011
+    - Fixed mojjy.pl and the lib/Test/WWW/Mechanize/Mojo.pm code in recent
+    Mojo versions.
+        - app->start instead of shagadelic.
+        - some tweaks to the ->$method->res.
+
 v0.0.6      Fri Sep  3 20:43:26 IDT 2010
     - Fixed mojjy.pl to avoid double encoding in recent Mojo versions.
 

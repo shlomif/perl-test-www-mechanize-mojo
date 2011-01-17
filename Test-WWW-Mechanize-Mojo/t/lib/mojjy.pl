@@ -199,7 +199,7 @@ get '/' => sub {
     return;
 };
 
-shagadelic;
+app->start;
 
 =head1 TODO
 

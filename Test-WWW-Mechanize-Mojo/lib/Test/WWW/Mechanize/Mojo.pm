@@ -11,7 +11,7 @@ use base 'Test::WWW::Mechanize';
 
 use Test::Mojo;
 
-our $VERSION = '0.0.6';
+our $VERSION = '0.0.7';
 
 our $APP_CLASS;
 my $Test = Test::Builder->new();
@@ -102,11 +102,13 @@ sub new {
 
 =cut
 
+  my $tester = delete($args->{tester});
+
   my $self = $class->SUPER::new(%$args);
 
-  if ($args->{tester})
+  if ($tester)
   {
-      $self->tester($args->{tester});
+      $self->tester($tester);
   }
   else
   {
@@ -234,16 +236,10 @@ sub _do_mojo_request {
         $request->header_field_names()
     );
 
-    $client->$method($uri->path_query(), 
-        # TODO : fix this to pass it as a ref.
-        %headers,
+    my $mojo_res = $client->$method($uri->path_query(), 
+        { %headers },
         $request->content,
-        sub { my (undef, $tx) = @_; 
-            $t->tx($tx)
-        }
-    )->process;
-
-    my $mojo_res = $t->tx->res;
+    )->res;
 
     my $response = HTTP::Response->new(
         $mojo_res->code(),
