@@ -125,8 +125,8 @@ sub new {
 sub BUILD {
   my ($self) = @_;
 
-  unless ($ENV{CATALYST_SERVER}) {
-    croak "mojo_app attribute is required unless CATALYST_SERVER env variable is set"
+  unless ($ENV{MOJO_SERVER}) {
+    croak "mojo_app attribute is required unless MOJO_SERVER env variable is set"
       unless $self->has_mojo_app;
     Class::MOP::load_class($self->mojo_app)
       unless (Class::MOP::is_class_loaded($self->mojo_app));
@@ -272,7 +272,7 @@ sub _do_remote_request {
     my $res = $self->_check_external_request($request);
     return $res if $res;
 
-    my $server  = URI->new( $ENV{CATALYST_SERVER} );
+    my $server  = URI->new( $ENV{MOJO_SERVER} );
 
     if ( $server->path =~ m|^(.+)?/$| ) {
         my $path = $1;
@@ -365,15 +365,15 @@ single sign-on system. You must set allow_external to true for this:
   $mech->allow_external(1);
 
 You can also test a remote server by setting the environment variable
-CATALYST_SERVER; for example:
+MOJO_SERVER; for example:
 
-  $ CATALYST_SERVER=http://example.com/myapp prove -l t
+  $ MOJO_SERVER=http://example.com/myapp prove -l t
 
 will run the same tests on the application running at
 http://example.com/myapp regardless of whether or not you specify
 http:://localhost for Test::WWW::Mechanize::Mojo.    
 
-Furthermore, if you set CATALYST_SERVER, the server will be regarded 
+Furthermore, if you set MOJO_SERVER, the server will be regarded 
 as a remote server even if your links point to localhost. Thus, you
 can use Test::WWW::Mechanize::Mojo to test your live webserver
 running on your local machine, if you need to test aspects of your
