@@ -7,6 +7,10 @@ use warnings;
 
 my $build = Test::Run::Builder->new(
     module_name => "Test::WWW::Mechanize::Mojo",
+    configure_requires =>
+    {
+        'Module::Build' => '0.36',
+    },
     test_requires =>
     {
         'Test::Exception'=> '0',
