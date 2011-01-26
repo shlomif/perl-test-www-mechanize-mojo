@@ -1,5 +1,9 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+v0.0.8      Wed Jan 26 14:56:01 IST 2011
+    - Convert the mentioning of CATALYST_SERVER to MOJO_SERVER.
+        - thanks to Insurgent Software.
+
 v0.0.7      Mon Jan 17 15:55:00 IST 2011
     - Fixed mojjy.pl and the lib/Test/WWW/Mechanize/Mojo.pm code in recent
     Mojo versions.
@@ -27,7 +31,7 @@ v0.0.2      Tue Mar  2 23:27:43 IST 2010
 
 v0.0.1      Tue Mar  2 20:59:50 IST 2010
     - Ported to Mojo from Test::WWW::Mechanize::Catalyst
-    - Convert from Module::Install Module::Build .
+    - Convert from Module::Install to Module::Build .
     - All rights disclaimed.
 
 Revision history for Perl module Test::WWW::Mechanize::Catalyst:
