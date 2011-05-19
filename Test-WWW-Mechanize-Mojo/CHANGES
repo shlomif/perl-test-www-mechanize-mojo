@@ -1,5 +1,9 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+v0.0.9      Thu May 19 23:14:29 IDT 2011
+    - Got rid of warnings by switching from $t->client to $t->ua.
+        - Thanks to Mirko Westermeier
+
 v0.0.8      Wed Jan 26 14:56:01 IST 2011
     - Convert the mentioning of CATALYST_SERVER to MOJO_SERVER.
         - thanks to Insurgent Software.

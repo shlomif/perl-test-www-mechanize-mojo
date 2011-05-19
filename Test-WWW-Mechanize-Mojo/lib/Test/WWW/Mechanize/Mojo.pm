@@ -224,7 +224,7 @@ sub _do_mojo_request {
     my $t = $self->tester;
   
     # Client
-    my $client = $t->client;
+    my $client = $t->ua;
     $client->app($t->app);
     $client->max_redirects($t->max_redirects);
 
