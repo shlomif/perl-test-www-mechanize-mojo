@@ -226,7 +226,6 @@ sub _do_mojo_request {
     # Client
     my $client = $t->ua;
     $client->app($t->app);
-    $client->max_redirects($t->max_redirects);
 
     my $method = lc($request->method());
 

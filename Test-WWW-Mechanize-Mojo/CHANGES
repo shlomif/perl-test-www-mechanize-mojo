@@ -1,5 +1,13 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+    - Update the module for recent versions of Mojolicious where
+    $t->max_redirects() was removed (after being deprecated).
+        - Thanks to tempire on #mojo on irc.perl.org for shedding some
+        light on this issue.
+    - This release coincides with the birthday of Sebastian Riedel
+    ( https://metacpan.org/author/SRI ), the creator and maintainer
+    of Mojolicious (and Catalyst previously). Happy birthday, Sebastian!
+
 v0.0.9      Thu May 19 23:14:29 IDT 2011
     - Got rid of warnings by switching from $t->client to $t->ua.
         - Thanks to Mirko Westermeier
