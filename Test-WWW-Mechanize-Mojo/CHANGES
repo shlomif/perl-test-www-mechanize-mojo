@@ -1,5 +1,6 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+v0.0.10     Sun May 13 23:16:58 IDT 2012
     - Update the module for recent versions of Mojolicious where
     $t->max_redirects() was removed (after being deprecated).
         - Thanks to tempire on #mojo on irc.perl.org for shedding some

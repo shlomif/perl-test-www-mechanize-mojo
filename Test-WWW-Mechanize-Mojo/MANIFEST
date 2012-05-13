@@ -20,3 +20,4 @@ t/redirect.t
 t/simple.t
 t/useragent.t
 t/white_label.t
+META.json
