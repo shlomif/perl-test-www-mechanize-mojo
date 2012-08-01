@@ -87,13 +87,13 @@ sub new {
   my $class = shift;
 
   my $args = ref $_[0] ? $_[0] : { @_ };
-  
+
 =begin foo
 
   # Dont let LWP complain about options for our attributes
   my %attr_options = map {
     my $n = $_->init_arg;
-    defined $n && exists $args->{$n} 
+    defined $n && exists $args->{$n}
         ? ( $n => delete $args->{$n} )
         : ( );
   } $class->meta->get_all_attributes;
@@ -214,7 +214,7 @@ sub _do_mojo_request {
 
       $request->header('Host', $host);
     }
- 
+
     my $res = $self->_check_external_request($request);
     return $res if $res;
 
@@ -222,7 +222,7 @@ sub _do_mojo_request {
     $request->authorization_basic( @creds ) if @creds;
 
     my $t = $self->tester;
-  
+
     # Client
     my $client = $t->ua;
     $client->app($t->app);
@@ -231,11 +231,11 @@ sub _do_mojo_request {
 
     my %headers =
     (
-        map { $_ => $request->header($_) } 
+        map { $_ => $request->header($_) }
         $request->header_field_names()
     );
 
-    my $mojo_res = $client->$method($uri->path_query(), 
+    my $mojo_res = $client->$method($uri->path_query(),
         { %headers },
         $request->content,
     )->res;
@@ -285,7 +285,7 @@ sub _do_remote_request {
         # If request path is '/', we have to add a trailing slash to the
         # final request URI
         my $add_trailing = $request->uri->path eq '/';
-        
+
         my @sp = split '/', $server->path;
         my @rp = split '/', $request->uri->path;
         shift @sp;shift @rp; # leading /
@@ -295,7 +295,7 @@ sub _do_remote_request {
             }
         }
         $request->uri->path(join '/', @rp);
-        
+
         if ( $add_trailing ) {
             $request->uri->path( $request->uri->path . '/' );
         }
@@ -323,7 +323,7 @@ Test::WWW::Mechanize::Mojo - Test::WWW::Mechanize for Mojo / Mojolicious
 
   my $tester = Test::Mojo->new();
 
-  # To test a Mojo application 
+  # To test a Mojo application
   my $mech = Test::WWW::Mechanize::Mojo->new(tester => $tester);
 
   $mech->get_ok("/"); # no hostname needed
@@ -332,7 +332,7 @@ Test::WWW::Mechanize::Mojo - Test::WWW::Mechanize for Mojo / Mojolicious
   $mech->content_contains("This is the root page", "Correct content");
   $mech->follow_link_ok({text => 'Hello'}, "Click on Hello");
   # ... and all other Test::WWW::Mechanize methods
-  
+
   # White label site testing
   $mech->host("foo.com");
   $mech->get_ok("/");
@@ -358,7 +358,7 @@ two lines of code do exactly the same thing:
   $mech->get_ok('http://localhost/action');
 
 Links which do not begin with / or are not for localhost can be handled
-as normal Web requests - this is handy if you have an external 
+as normal Web requests - this is handy if you have an external
 single sign-on system. You must set allow_external to true for this:
 
   $mech->allow_external(1);
@@ -370,15 +370,15 @@ MOJO_SERVER; for example:
 
 will run the same tests on the application running at
 http://example.com/myapp regardless of whether or not you specify
-http:://localhost for Test::WWW::Mechanize::Mojo.    
+http:://localhost for Test::WWW::Mechanize::Mojo.
 
-Furthermore, if you set MOJO_SERVER, the server will be regarded 
+Furthermore, if you set MOJO_SERVER, the server will be regarded
 as a remote server even if your links point to localhost. Thus, you
 can use Test::WWW::Mechanize::Mojo to test your live webserver
 running on your local machine, if you need to test aspects of your
 deployment environment (for example, configuration options in an
 http.conf file) instead of just the Mojo request handling.
-    
+
 This makes testing fast and easy. L<Test::WWW::Mechanize> provides
 functions for common web testing scenarios. For example:
 
@@ -424,7 +424,7 @@ In addition, one can specify a C<'tester'> argument as the Test::Mojo instance.
 =head2 allow_external
 
 Links which do not begin with / or are not for localhost can be handled
-as normal Web requests - this is handy if you have an external 
+as normal Web requests - this is handy if you have an external
 single sign-on system. You must set allow_external to true for this:
 
   $m->allow_external(1);
@@ -450,7 +450,7 @@ Do we have a value set for the host attribute
 =head2 $mech->get_ok($url, [ \%LWP_options ,] $desc)
 
 A wrapper around WWW::Mechanize's get(), with similar options, except the
-second argument needs to be a hash reference, not a hash. Returns true or 
+second argument needs to be a hash reference, not a hash. Returns true or
 false.
 
 =head2 $mech->title_is( $str [, $desc ] )
@@ -612,7 +612,7 @@ L<Test::WWW::Mechanize>, L<WWW::Mechanize>, L<Test::WWW::Mechanize::Catalyst>.
 
 =head1 AUTHOR
 
-=head2 Of Test::WWW::Mechanize::Catalyst 
+=head2 Of Test::WWW::Mechanize::Catalyst
 
 Ash Berlin C<< <ash@cpan.org> >>
 
