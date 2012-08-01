@@ -429,9 +429,17 @@ single sign-on system. You must set allow_external to true for this:
 
   $m->allow_external(1);
 
-head2 mojo_app
+=head2 mojo_app
 
 The name of the Mojo app which we are testing against. Read-only.
+
+=head2 has_mojo_app
+
+For internal use.
+
+=head2 tester
+
+For internal use.
 
 =head2 host
 
