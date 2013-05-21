@@ -39,7 +39,7 @@ my $build = Test::Run::Builder->new(
     {
         resources =>
         {
-            repository => "http://svn.berlios.de/svnroot/repos/web-cpan/Test-WWW-Mechanize-Mojo",
+            repository => "http://bitbucket.org/shlomif/perl-test-www-mechanize-mojo",
             homepage => "http://web-cpan.berlios.de/modules/Test-WWW-Mechanize-Mojo/",
         },
         keywords =>
