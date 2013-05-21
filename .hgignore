@@ -4,3 +4,7 @@ Test-WWW-Mechanize-Mojo/Build
 Test-WWW-Mechanize-Mojo/META.json
 Test-WWW-Mechanize-Mojo/MYMETA.json
 Test-WWW-Mechanize-Mojo/MYMETA.yml
+
+syntax: regexp
+
+^Test-WWW-Mechanize-Mojo/Test-WWW-Mechanize-Mojo-v\d+\.\d+\.\d+(?:/|\.tar\.gz$)
