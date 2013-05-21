@@ -17,7 +17,7 @@ my $build = Test::Run::Builder->new(
         'Test::More' => '0',
         'Test::Mojo' => 0,
     },
-    requires => 
+    requires =>
     {
         'base' => 0,
         'Carp' => 0,

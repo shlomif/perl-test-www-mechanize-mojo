@@ -137,11 +137,11 @@ sub gzipped : Global {
 
 sub user_agent : Global {
     my ( $self, $c ) = @_;
-    
+
     my $html = html($c->req->user_agent, $c->req->user_agent);
     $c->response->content_type("text/html; charset=utf-8");
     $c->response->output( $html );
-    
+
 }
 
 1;

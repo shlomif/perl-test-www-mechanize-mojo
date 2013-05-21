@@ -105,7 +105,7 @@ sub _gzipped {
     require Compress::Zlib;
 
     my $html = html( "Hello", "Hi there! ☺" );
-   
+
     $self->res->headers->content_type("text/html; charset=utf-8");
     $self->render_text( Compress::Zlib::memGzip($html) );
     $self->res->headers->content_transfer_encoding('gzip');
@@ -119,13 +119,13 @@ get "/gzipped/" => \&_gzipped;
 
 get "/user_agent" => sub {
     my $self = shift;
-    
+
     my $agent = $self->req->headers->user_agent();
     my $html = html($agent, $agent);
-    
+
     $self->render_text($html);
     $self->res->headers->content_type("text/html; charset=utf-8");
-    
+
     return;
 };
 
@@ -142,7 +142,7 @@ get "/host" => sub {
 
 post "/form-submit" => sub {
     my $self = shift;
-    
+
     my $html = html( "Foo", "Your email is " . $self->param("email"));
 
     $self->render_text($html);
