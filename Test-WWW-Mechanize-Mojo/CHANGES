@@ -1,5 +1,7 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+    - Fix the tests for Mojolicious 4.07.
+
 v0.0.12     Tue 21 May 21:10:56 IDT 2013
     - Add t/style-trailing-space.t and get rid of trailing space.
 

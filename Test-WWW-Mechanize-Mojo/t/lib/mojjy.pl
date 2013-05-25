@@ -30,13 +30,13 @@ get '/check_auth_basic/' => sub {
     if ( $auth eq "user:pass" )
     {
         my $html = html( "Auth", "This is the auth page" );
-        $self->render_text($html);
+        $self->render(text => $html);
         return;
     }
     else
     {
         my $html = html( "Auth", "Auth Failed!" );
-        $self->render_text($html, status => "401",);
+        $self->render(text => $html, status => "401",);
         return;
     }
 };
@@ -76,7 +76,7 @@ get '/hello' => sub {
 
     my $html = html( "Hello", "Hi there! ☺" ); # ☺
     $self->res->headers->content_type("text/html; charset=utf-8");
-    $self->render_text($html);
+    $self->render(text => $html);
 
     return;
 };
@@ -93,7 +93,7 @@ get "/die/" => sub {
     my $self = shift;
 
     my $html = html( "Die", "This is the die page" );
-    $self->render_text($html);
+    $self->render(text => $html);
     die "erk!";
 };
 
@@ -107,7 +107,7 @@ sub _gzipped {
     my $html = html( "Hello", "Hi there! ☺" );
 
     $self->res->headers->content_type("text/html; charset=utf-8");
-    $self->render_text( Compress::Zlib::memGzip($html) );
+    $self->render(text =>  Compress::Zlib::memGzip($html) );
     $self->res->headers->content_transfer_encoding('gzip');
     $self->res->headers->add( 'Vary', 'Accept-Encoding' );
 
@@ -123,7 +123,7 @@ get "/user_agent" => sub {
     my $agent = $self->req->headers->user_agent();
     my $html = html($agent, $agent);
 
-    $self->render_text($html);
+    $self->render(text => $html);
     $self->res->headers->content_type("text/html; charset=utf-8");
 
     return;
@@ -135,7 +135,7 @@ get "/host" => sub {
 
     my $host = $self->req->headers->header('Host') || "<undef>";
     my $html = html( "Foo", "Host: $host" );
-    $self->render_text($html);
+    $self->render(text => $html);
 
     return;
 };
@@ -145,7 +145,7 @@ post "/form-submit" => sub {
 
     my $html = html( "Foo", "Your email is " . $self->param("email"));
 
-    $self->render_text($html);
+    $self->render(text => $html);
 
     return;
 };
@@ -153,7 +153,7 @@ post "/form-submit" => sub {
 get "/form" => sub {
     my $self = shift;
 
-    $self->render_text(<<'EOF');
+    $self->render(text => <<'EOF');
 <html>
 <head><title>Form test</title></head>
 <body>
@@ -183,18 +183,18 @@ EOF
 get '/with-params' => sub {
     my $self = shift;
 
-    $self->render_text(sprintf("[%s]{%s}", $self->param('one'), $self->param('two')));
+    $self->render(text => sprintf("[%s]{%s}", $self->param('one'), $self->param('two')));
 };
 
 get '/:groovy' => sub {
     my $self = shift;
-    $self->render_text($self->param('groovy'), layout => 'funky');
+    $self->render(text => $self->param('groovy'), layout => 'funky');
 };
 
 get '/' => sub {
     my $self = shift;
 
-    $self->render_text(html("Root", "This is the root page"));
+    $self->render(text => html("Root", "This is the root page"));
 
     return;
 };
