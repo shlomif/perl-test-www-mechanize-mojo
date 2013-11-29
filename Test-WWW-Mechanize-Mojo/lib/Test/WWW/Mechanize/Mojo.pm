@@ -11,7 +11,7 @@ use base 'Test::WWW::Mechanize';
 
 use Test::Mojo;
 
-our $VERSION = '0.0.13';
+our $VERSION = '0.0.14';
 
 our $APP_CLASS;
 my $Test = Test::Builder->new();
@@ -88,20 +88,6 @@ sub new {
 
   my $args = ref $_[0] ? $_[0] : { @_ };
 
-=begin foo
-
-  # Dont let LWP complain about options for our attributes
-  my %attr_options = map {
-    my $n = $_->init_arg;
-    defined $n && exists $args->{$n}
-        ? ( $n => delete $args->{$n} )
-        : ( );
-  } $class->meta->get_all_attributes;
-
-=end foo
-
-=cut
-
   my $tester = delete($args->{tester});
 
   my $self = $class->SUPER::new(%$args);
@@ -119,23 +105,6 @@ sub new {
 
   return $self;
 }
-
-=begin foo
-
-sub BUILD {
-  my ($self) = @_;
-
-  unless ($ENV{MOJO_SERVER}) {
-    croak "mojo_app attribute is required unless MOJO_SERVER env variable is set"
-      unless $self->has_mojo_app;
-    Class::MOP::load_class($self->mojo_app)
-      unless (Class::MOP::is_class_loaded($self->mojo_app));
-  }
-}
-
-=end foo
-
-=cut
 
 sub _make_request {
     my ( $self, $request ) = @_;

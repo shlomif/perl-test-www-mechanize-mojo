@@ -6,7 +6,7 @@ build_requires: {}
 configure_requires:
   Module::Build: 0.36
 dynamic_config: 1
-generated_by: 'Module::Build version 0.4005, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Module::Build version 0.4007, CPAN::Meta::Converter version 2.132830'
 keywords: []
 license: perl
 meta-spec:
@@ -16,7 +16,7 @@ name: Test-WWW-Mechanize-Mojo
 provides:
   Test::WWW::Mechanize::Mojo:
     file: lib/Test/WWW/Mechanize/Mojo.pm
-    version: v0.0.13
+    version: v0.0.14
 requires:
   Carp: 0
   Encode: 0
@@ -34,7 +34,7 @@ resources:
   homepage: http://web-cpan.berlios.de/modules/Test-WWW-Mechanize-Mojo/
   license: http://dev.perl.org/licenses/
   repository: http://bitbucket.org/shlomif/perl-test-www-mechanize-mojo
-version: v0.0.13
+version: v0.0.14
 x_test_requires:
   Test::Exception: 0
   Test::Mojo: 0

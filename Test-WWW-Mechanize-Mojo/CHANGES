@@ -1,5 +1,10 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+v0.0.14     Fri 29 Nov 09:36:57 IST 2013
+    - Remove some old PODded-out code.
+        - Caused a false positive at:
+        - https://rt.cpan.org/Public/Bug/Display.html?id=91042
+
 v0.0.13     Sat 25 May 23:27:16 IDT 2013
     - Fix the tests for Mojolicious 4.07.
 
