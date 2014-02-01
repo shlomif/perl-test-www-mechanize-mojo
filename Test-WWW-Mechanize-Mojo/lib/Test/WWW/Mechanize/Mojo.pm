@@ -3,6 +3,8 @@ package Test::WWW::Mechanize::Mojo;
 use strict;
 use warnings;
 
+use 5.012;
+
 use Carp qw/croak/;
 use Encode qw();
 use HTML::Entities;

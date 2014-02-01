@@ -26,6 +26,7 @@ my $build = Test::Run::Builder->new(
         'LWP'                                      => '5.816',
         'Mojolicious::Lite' => 0,
         'Mojolicious' => '4.07',
+        'perl' => '5.012',
         'strict' => 0,
         'Test::WWW::Mechanize'                     => '1.14',
         'utf8' => 0,
