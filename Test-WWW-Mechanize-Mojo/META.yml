@@ -27,6 +27,7 @@ requires:
   Test::WWW::Mechanize: 1.14
   WWW::Mechanize: 1.50
   base: 0
+  perl: 5.012
   strict: 0
   utf8: 0
   warnings: 0
