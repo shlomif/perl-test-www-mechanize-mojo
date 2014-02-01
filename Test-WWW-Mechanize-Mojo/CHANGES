@@ -1,5 +1,7 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+    - Add separate "LICENSE" file (CPANTS).
+
 v0.0.14     Fri 29 Nov 09:36:57 IST 2013
     - Remove some old PODded-out code.
         - Caused a false positive at:

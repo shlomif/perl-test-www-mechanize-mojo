@@ -1,11 +1,13 @@
-buildlib/Test/Run/Builder.pm
 Build.PL
 CHANGES
-lib/Test/WWW/Mechanize/Mojo.pm
-Makefile.PL
+LICENSE
 MANIFEST			This list of files
+META.json
 META.yml
+Makefile.PL
 README
+buildlib/Test/Run/Builder.pm
+lib/Test/WWW/Mechanize/Mojo.pm
 scripts/tag-release.pl
 t/auth-test.t
 t/cookies.t
@@ -21,4 +23,3 @@ t/simple.t
 t/style-trailing-space.t
 t/useragent.t
 t/white_label.t
-META.json
