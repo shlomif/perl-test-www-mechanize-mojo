@@ -196,7 +196,7 @@ sub _do_mojo_request {
 
     # Client
     my $client = $t->ua;
-    $client->app($t->app);
+    $client->server->app($t->app);
 
     my $method = lc($request->method());
 

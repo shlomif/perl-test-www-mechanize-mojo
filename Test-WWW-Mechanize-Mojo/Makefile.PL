@@ -10,7 +10,7 @@ WriteMakefile
                    'Encode' => 0,
                    'HTML::Entities' => 0,
                    'LWP' => '5.816',
-                   'Mojolicious' => '4.07',
+                   'Mojolicious' => '4.75',
                    'Mojolicious::Lite' => 0,
                    'Test::WWW::Mechanize' => '1.14',
                    'WWW::Mechanize' => '1.50',

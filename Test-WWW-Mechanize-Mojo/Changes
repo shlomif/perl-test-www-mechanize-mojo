@@ -1,5 +1,11 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+v0.0.16  2014-02-02
+    - Fix the tests (and the code) on recent Mojoliciouses.
+        - For an example of a broken test, see:
+        - http://www.cpantesters.org/cpan/report/8fa17a8a-77ed-1014-a0c9-79c63567e6ce
+        - Now requiring Mojolicious-4.75.
+
 v0.0.15  2014-02-01
     - Add separate "LICENSE" file (CPANTS).
     - Specify minimum version of perl (CPANTS).
