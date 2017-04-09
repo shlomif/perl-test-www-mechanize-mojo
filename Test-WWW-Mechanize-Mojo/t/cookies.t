@@ -9,7 +9,8 @@ use Test::More tests => 3;
 use Test::Mojo;
 use Test::WWW::Mechanize::Mojo;
 
-require "t/lib/mojjy.pl";
+use lib './t/lib';
+require MyMojjy;
 
 my $t = Test::Mojo->new();
 

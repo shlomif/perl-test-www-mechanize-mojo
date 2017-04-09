@@ -17,7 +17,7 @@ t/form_submit.t
 t/lib/Catty.pm
 t/lib/CattySession.pm
 t/lib/ExternalCatty.pm
-t/lib/mojjy.pl
+t/lib/MyMojjy.pm
 t/pod-coverage.t
 t/pod.t
 t/redirect.t

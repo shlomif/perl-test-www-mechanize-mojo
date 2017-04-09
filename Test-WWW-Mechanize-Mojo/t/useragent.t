@@ -8,7 +8,8 @@ use Test::More tests => 2;
 use Test::Mojo;
 use Test::WWW::Mechanize::Mojo;
 
-require "t/lib/mojjy.pl";
+use lib './t/lib';
+require MyMojjy;
 
 use Encode qw();
 

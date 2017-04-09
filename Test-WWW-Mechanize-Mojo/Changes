@@ -1,5 +1,12 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+v0.0.17  2016-04-09
+    - Fix the tests in the upcomig perl-5.26.0 with the removal of "." from
+    @INC .
+        - For an example of a broken test, see:
+        - http://www.cpantesters.org/cpan/report/c1f4ee94-16a3-11e7-8dda-ce31a02b686a
+        - Thanks to DCOLLINS and other CPAN testers.
+
 v0.0.16  2014-02-02
     - Fix the tests (and the code) on recent Mojoliciouses.
         - For an example of a broken test, see:
