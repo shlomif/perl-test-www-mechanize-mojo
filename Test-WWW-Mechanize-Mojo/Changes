@@ -1,5 +1,8 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+0.0.19   2018-05-02
+    - Hopefullly remove dep on Catalyst.
+
 0.0.18   2018-05-02
     - Convert to dist zilla.
 
