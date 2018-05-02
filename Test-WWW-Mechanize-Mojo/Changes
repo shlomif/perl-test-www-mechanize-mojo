@@ -1,5 +1,8 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+0.0.18   2018-05-02
+    - Convert to dist zilla.
+
 v0.0.17  2016-04-09
     - Fix the tests in the upcomig perl-5.26.0 with the removal of "." from
     @INC .

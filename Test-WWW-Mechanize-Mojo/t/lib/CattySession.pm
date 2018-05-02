@@ -20,31 +20,35 @@ CattySession->config(
 
 CattySession->setup();
 
-sub auto : Private {
+sub auto : Private
+{
     my ( $self, $context ) = @_;
-    if ( $context->session ) {
+    if ( $context->session )
+    {
         return 1;
     }
 
 }
 
-sub default : Private {
+sub default : Private
+{
     my ( $self, $context ) = @_;
     my $html = html( "Root", "This is the root page" );
     $context->response->content_type("text/html");
     $context->response->output($html);
 }
 
-sub name : Global {
-    my ($self, $c) = @_;
+sub name : Global
+{
+    my ( $self, $c ) = @_;
 
     my $html = html( $c->config->{name}, "This is the die page" );
     $c->response->content_type("text/html");
     $c->response->output($html);
 }
 
-
-sub html {
+sub html
+{
     my ( $title, $body ) = @_;
     return qq{
 <html>

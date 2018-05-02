@@ -8,7 +8,8 @@ use Cwd;
 
 use utf8;
 
-sub html {
+sub html
+{
     my ( $title, $body ) = @_;
     return qq{
 <html>
@@ -30,17 +31,16 @@ get '/check_auth_basic/' => sub {
     if ( $auth eq "user:pass" )
     {
         my $html = html( "Auth", "This is the auth page" );
-        $self->render(text => $html);
+        $self->render( text => $html );
         return;
     }
     else
     {
         my $html = html( "Auth", "Auth Failed!" );
-        $self->render(text => $html, status => "401",);
+        $self->render( text => $html, status => "401", );
         return;
     }
 };
-
 
 get "/hi" => sub {
     my $self = shift;
@@ -70,13 +70,12 @@ get "/bonjour" => sub {
     return;
 };
 
-
 get '/hello' => sub {
     my $self = shift;
 
-    my $html = html( "Hello", "Hi there! ☺" ); # ☺
+    my $html = html( "Hello", "Hi there! ☺" );    # ☺
     $self->res->headers->content_type("text/html; charset=utf-8");
-    $self->render(text => $html);
+    $self->render( text => $html );
 
     return;
 };
@@ -93,11 +92,12 @@ get "/die/" => sub {
     my $self = shift;
 
     my $html = html( "Die", "This is the die page" );
-    $self->render(text => $html);
+    $self->render( text => $html );
     die "erk!";
 };
 
-sub _gzipped {
+sub _gzipped
+{
     my $self = shift;
 
     # If done properly this test should check the accept-encoding header, but we
@@ -107,7 +107,7 @@ sub _gzipped {
     my $html = html( "Hello", "Hi there! ☺" );
 
     $self->res->headers->content_type("text/html; charset=utf-8");
-    $self->render(text =>  Compress::Zlib::memGzip($html) );
+    $self->render( text => Compress::Zlib::memGzip($html) );
     $self->res->headers->content_transfer_encoding('gzip');
     $self->res->headers->add( 'Vary', 'Accept-Encoding' );
 
@@ -116,26 +116,24 @@ sub _gzipped {
 
 get "/gzipped/" => \&_gzipped;
 
-
 get "/user_agent" => sub {
     my $self = shift;
 
     my $agent = $self->req->headers->user_agent();
-    my $html = html($agent, $agent);
+    my $html = html( $agent, $agent );
 
-    $self->render(text => $html);
+    $self->render( text => $html );
     $self->res->headers->content_type("text/html; charset=utf-8");
 
     return;
 };
-
 
 get "/host" => sub {
     my $self = shift;
 
     my $host = $self->req->headers->header('Host') || "<undef>";
     my $html = html( "Foo", "Host: $host" );
-    $self->render(text => $html);
+    $self->render( text => $html );
 
     return;
 };
@@ -143,9 +141,9 @@ get "/host" => sub {
 post "/form-submit" => sub {
     my $self = shift;
 
-    my $html = html( "Foo", "Your email is " . $self->param("email"));
+    my $html = html( "Foo", "Your email is " . $self->param("email") );
 
-    $self->render(text => $html);
+    $self->render( text => $html );
 
     return;
 };
@@ -153,7 +151,7 @@ post "/form-submit" => sub {
 get "/form" => sub {
     my $self = shift;
 
-    $self->render(text => <<'EOF');
+    $self->render( text => <<'EOF');
 <html>
 <head><title>Form test</title></head>
 <body>
@@ -183,18 +181,20 @@ EOF
 get '/with-params' => sub {
     my $self = shift;
 
-    $self->render(text => sprintf("[%s]{%s}", $self->param('one'), $self->param('two')));
+    $self->render(
+        text => sprintf( "[%s]{%s}", $self->param('one'), $self->param('two') )
+    );
 };
 
 get '/:groovy' => sub {
     my $self = shift;
-    $self->render(text => $self->param('groovy'), layout => 'funky');
+    $self->render( text => $self->param('groovy'), layout => 'funky' );
 };
 
 get '/' => sub {
     my $self = shift;
 
-    $self->render(text => html("Root", "This is the root page"));
+    $self->render( text => html( "Root", "This is the root page" ) );
 
     return;
 };

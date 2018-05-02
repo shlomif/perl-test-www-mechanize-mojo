@@ -17,12 +17,14 @@ use Test::WWW::Mechanize::Mojo;
 my $root = "http://localhost";
 
 my $t = Test::Mojo->new();
-my $m = Test::WWW::Mechanize::Mojo->new( autocheck => 0, tester => $t,);
+my $m = Test::WWW::Mechanize::Mojo->new( autocheck => 0, tester => $t, );
 
 # TEST
 $m->get_ok("$root/form");
+
 # TEST
 is( $m->ct, "text/html" );
+
 # TEST
 $m->title_is("Form test");
 
@@ -36,8 +38,7 @@ my $email = "sophie\@hello.tld";
 $m->submit_form_ok(
     {
         form_id => "register",
-        fields =>
-        {
+        fields  => {
             email => $email,
         },
     },
@@ -45,7 +46,5 @@ $m->submit_form_ok(
 );
 
 # TEST
-$m->content_like(
-    qr{Your email is \Q$email\E}
-);
+$m->content_like(qr{Your email is \Q$email\E});
 

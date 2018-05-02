@@ -17,16 +17,20 @@ use Test::WWW::Mechanize::Mojo;
 my $root = "http://localhost";
 
 my $t = Test::Mojo->new();
-my $m = Test::WWW::Mechanize::Mojo->new( tester => $t,);
+my $m = Test::WWW::Mechanize::Mojo->new( tester => $t, );
 
 $m->host('foo.com');
+
 # TEST
 $m->get_ok('/host');
+
 # TEST
 $m->content_contains('Host: foo.com');
 
 $m->clear_host;
+
 # TEST
 $m->get_ok('/host');
+
 # TEST
 $m->content_contains('Host: localhost') or diag $m->content;

@@ -29,7 +29,7 @@ sub has_mojo_app
 {
     my $self = shift;
 
-    return exists($self->{mojo_app});
+    return exists( $self->{mojo_app} );
 }
 
 sub allow_external
@@ -60,7 +60,7 @@ sub clear_host
 {
     my $self = shift;
 
-    delete($self->{host});
+    delete( $self->{host} );
 
     return;
 }
@@ -69,9 +69,8 @@ sub has_host
 {
     my $self = shift;
 
-    return exists($self->{host});
+    return exists( $self->{host} );
 }
-
 
 sub tester
 {
@@ -85,35 +84,37 @@ sub tester
     return $self->{tester};
 }
 
-sub new {
-  my $class = shift;
+sub new
+{
+    my $class = shift;
 
-  my $args = ref $_[0] ? $_[0] : { @_ };
+    my $args = ref $_[0] ? $_[0] : {@_};
 
-  my $tester = delete($args->{tester});
+    my $tester = delete( $args->{tester} );
 
-  my $self = $class->SUPER::new(%$args);
+    my $self = $class->SUPER::new(%$args);
 
-  if ($tester)
-  {
-      $self->tester($tester);
-  }
-  else
-  {
-      $self->tester(Test::Mojo->new());
-  }
+    if ($tester)
+    {
+        $self->tester($tester);
+    }
+    else
+    {
+        $self->tester( Test::Mojo->new() );
+    }
 
-  $self->{allow_external} = 0;
+    $self->{allow_external} = 0;
 
-  return $self;
+    return $self;
 }
 
-sub _make_request {
+sub _make_request
+{
     my ( $self, $request ) = @_;
 
     my $response = $self->_do_mojo_request($request);
     $response->header( 'Content-Base', $response->request->uri )
-      unless $response->header('Content-Base');
+        unless $response->header('Content-Base');
 
     $self->cookie_jar->extract_cookies($response) if $self->cookie_jar;
 
@@ -122,8 +123,8 @@ sub _make_request {
         && $response->code == 500
         && $response->content =~ /on Catalyst \d+\.\d+/ )
     {
-        my ($error)
-            = ( $response->content =~ /<code class="error">(.*?)<\/code>/s );
+        my ($error) =
+            ( $response->content =~ /<code class="error">(.*?)<\/code>/s );
         $error ||= "unknown error";
         decode_entities($error);
         $Test->diag("Catalyst error screen: $error");
@@ -156,18 +157,21 @@ sub _make_request {
             $end_of_chain = $end_of_chain->previous;
         }                                          #   of the chain...
         $end_of_chain->previous($old_response);    # ...and add us to it
-    } else {
+    }
+    else
+    {
         $response->{_raw_content} = $response->content;
     }
 
     return $response;
 }
 
-sub _do_mojo_request {
-    my ($self, $request) = @_;
+sub _do_mojo_request
+{
+    my ( $self, $request ) = @_;
 
     my $uri = $request->uri;
-    $uri->scheme('http') unless defined $uri->scheme;
+    $uri->scheme('http')    unless defined $uri->scheme;
     $uri->host('localhost') unless defined $uri->host;
 
     $request = $self->prepare_request($request);
@@ -175,48 +179,44 @@ sub _do_mojo_request {
 
     # Woe betide anyone who unsets MOJO_SERVER
     return $self->_do_remote_request($request)
-      if $ENV{MOJO_SERVER};
+        if $ENV{MOJO_SERVER};
 
     # If there's no Host header, set one.
-    unless ($request->header('Host')) {
-      my $host = $self->has_host
-               ? $self->host
-               : $uri->host;
+    unless ( $request->header('Host') )
+    {
+        my $host =
+              $self->has_host
+            ? $self->host
+            : $uri->host;
 
-      $request->header('Host', $host);
+        $request->header( 'Host', $host );
     }
 
     my $res = $self->_check_external_request($request);
     return $res if $res;
 
     my @creds = $self->get_basic_credentials( "Basic", $uri );
-    $request->authorization_basic( @creds ) if @creds;
+    $request->authorization_basic(@creds) if @creds;
 
     my $t = $self->tester;
 
     # Client
     my $client = $t->ua;
-    $client->server->app($t->app);
+    $client->server->app( $t->app );
 
-    my $method = lc($request->method());
+    my $method = lc( $request->method() );
 
     my %headers =
-    (
-        map { $_ => $request->header($_) }
-        $request->header_field_names()
-    );
+        ( map { $_ => $request->header($_) } $request->header_field_names() );
 
-    my $mojo_res = $client->$method($uri->path_query(),
-        { %headers },
-        $request->content,
-    )->res;
+    my $mojo_res =
+        $client->$method( $uri->path_query(), {%headers}, $request->content, )
+        ->res;
 
-    my $response = HTTP::Response->new(
-        $mojo_res->code(),
-        $mojo_res->message(),
-        [ %{$mojo_res->headers->to_hash()} ],
-        $mojo_res->body()
-    );
+    my $response =
+        HTTP::Response->new( $mojo_res->code(), $mojo_res->message(),
+        [ %{ $mojo_res->headers->to_hash() } ],
+        $mojo_res->body() );
 
     # LWP would normally do this, but we dont get down that far.
     $response->request($request);
@@ -224,27 +224,31 @@ sub _do_mojo_request {
     return $response;
 }
 
-sub _check_external_request {
-    my ($self, $request) = @_;
+sub _check_external_request
+{
+    my ( $self, $request ) = @_;
 
     # If there's no host then definatley not an external request.
     $request->uri->can('host_port') or return;
 
-    if ( $self->allow_external && $request->uri->host_port ne 'localhost:80' ) {
+    if ( $self->allow_external && $request->uri->host_port ne 'localhost:80' )
+    {
         return $self->SUPER::_make_request($request);
     }
     return undef;
 }
 
-sub _do_remote_request {
-    my ($self, $request) = @_;
+sub _do_remote_request
+{
+    my ( $self, $request ) = @_;
 
     my $res = $self->_check_external_request($request);
     return $res if $res;
 
-    my $server  = URI->new( $ENV{MOJO_SERVER} );
+    my $server = URI->new( $ENV{MOJO_SERVER} );
 
-    if ( $server->path =~ m|^(.+)?/$| ) {
+    if ( $server->path =~ m|^(.+)?/$| )
+    {
         my $path = $1;
         $server->path("$path") if $path;    # need to be quoted
     }
@@ -252,22 +256,27 @@ sub _do_remote_request {
     # the request path needs to be sanitised if $server is using a
     # non-root path due to potential overlap between request path and
     # response path.
-    if ($server->path) {
+    if ( $server->path )
+    {
         # If request path is '/', we have to add a trailing slash to the
         # final request URI
         my $add_trailing = $request->uri->path eq '/';
 
         my @sp = split '/', $server->path;
         my @rp = split '/', $request->uri->path;
-        shift @sp;shift @rp; # leading /
-        if (@rp) {
-            foreach my $sp (@sp) {
-                $sp eq $rp[0] ? shift @rp : last
+        shift @sp;
+        shift @rp;    # leading /
+        if (@rp)
+        {
+            foreach my $sp (@sp)
+            {
+                $sp eq $rp[0] ? shift @rp : last;
             }
         }
-        $request->uri->path(join '/', @rp);
+        $request->uri->path( join '/', @rp );
 
-        if ( $add_trailing ) {
+        if ($add_trailing)
+        {
             $request->uri->path( $request->uri->path . '/' );
         }
     }
