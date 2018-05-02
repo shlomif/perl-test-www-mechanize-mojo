@@ -1,11 +1,5 @@
-Test-WWW-Mechanize-Mojo/blib
-Test-WWW-Mechanize-Mojo/_build
-Test-WWW-Mechanize-Mojo/Build
-Test-WWW-Mechanize-Mojo/Makefile.PL
-Test-WWW-Mechanize-Mojo/META.json
-Test-WWW-Mechanize-Mojo/META.yml
-Test-WWW-Mechanize-Mojo/MYMETA.json
-Test-WWW-Mechanize-Mojo/MYMETA.yml
+Test-WWW-Mechanize-Mojo/.build/
+Test-WWW-Mechanize-Mojo/.tidyall.d/
 
 syntax: regexp
 
