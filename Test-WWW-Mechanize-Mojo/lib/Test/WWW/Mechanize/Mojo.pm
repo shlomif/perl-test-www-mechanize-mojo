@@ -153,7 +153,7 @@ sub _make_request
         while ( $end_of_chain->previous )    # keep going till the end
         {
             $end_of_chain = $end_of_chain->previous;
-        }                                          #   of the chain...
+        }                                    #   of the chain...
         $end_of_chain->previous($old_response);    # ...and add us to it
     }
     else

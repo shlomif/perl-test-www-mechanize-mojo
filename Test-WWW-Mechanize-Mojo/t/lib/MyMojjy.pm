@@ -120,7 +120,7 @@ get "/user_agent" => sub {
     my $self = shift;
 
     my $agent = $self->req->headers->user_agent();
-    my $html = html( $agent, $agent );
+    my $html  = html( $agent, $agent );
 
     $self->render( text => $html );
     $self->res->headers->content_type("text/html; charset=utf-8");
