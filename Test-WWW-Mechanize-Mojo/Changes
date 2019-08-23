@@ -1,5 +1,9 @@
 Revision history for Perl module Test::WWW::Mechanize::Mojo :
 
+0.0.20   2019-08-23
+    - Move repo to:
+    - https://github.com/shlomif/perl-test-www-mechanize-mojo
+
 0.0.19   2018-05-02
     - Hopefullly remove dep on Catalyst.
 

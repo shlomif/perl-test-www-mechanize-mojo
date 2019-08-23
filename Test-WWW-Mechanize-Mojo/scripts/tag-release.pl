@@ -15,7 +15,7 @@ if ( !defined($version) )
 }
 
 my @cmd = (
-    "hg", "tag", "-m",
+    "git", "tag", "-m",
     "Tagging the Test-WWW-Mechanize-Mojo release as $version",
     "releases/$version",
 );
