@@ -60,7 +60,7 @@ sub clear_host
 
     delete( $self->{host} );
 
-    return;
+    return ();
 }
 
 sub has_host
@@ -226,8 +226,11 @@ sub _check_external_request
 {
     my ( $self, $request ) = @_;
 
-    # If there's no host then definatley not an external request.
-    $request->uri->can('host_port') or return;
+    # If there's no host then definitely not an external request.
+    if ( not $request->uri->can('host_port') )
+    {
+        return undef;
+    }
 
     if ( $self->allow_external && $request->uri->host_port ne 'localhost:80' )
     {
@@ -589,7 +592,6 @@ in WWW::Mechanize.
 One workaround for this is that if you are expecting to redirect to an external
 site, clone the TWMC obeject and use the cloned object for the external
 redirect.
-
 
 =head1 SEE ALSO
 

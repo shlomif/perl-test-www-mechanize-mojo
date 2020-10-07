@@ -35,6 +35,7 @@ my $email = "sophie\@hello.tld";
 #    'email=shlomif'
 # );
 
+# TEST
 $m->submit_form_ok(
     {
         form_id => "register",

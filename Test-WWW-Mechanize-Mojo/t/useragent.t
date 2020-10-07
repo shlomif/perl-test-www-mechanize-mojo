@@ -20,5 +20,8 @@ my $agent = 'TestAgent/1.0';
 my $t     = Test::Mojo->new();
 my $m     = Test::WWW::Mechanize::Mojo->new( agent => $agent, tester => $t, );
 
+# TEST
 $m->get_ok("$root/user_agent");
+
+# TEST
 $m->title_is( $agent, "title is correct: $agent" );
